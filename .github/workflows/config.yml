@@ -1,46 +1,30 @@
- version: 2.1
+on: [push] # Add the missing "on" property here
 
- orbs:
-  codecov: codecov/codecov@3.2.2
-
- jobs:
+jobs:
   test-api:
+    runs-on: ubuntu-latest
     docker:
       - image: cimg/python:3.10.2
     steps:
-      - checkout
-      - run:
-          name: Install requirements
-          command: pip install -r api/requirements.txt
-      - run:
-          name: Run tests and collect coverage
-          command: pytest --cov api.calculator
-      - codecov/upload
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Install requirements
+        run: pip install -r api/requirements.txt
+      - name: Run tests and collect coverage
+        run: pytest --cov api.calculator
+      - name: Upload coverage report
+        uses: codecov/codecov-action@v2
 
- workflows:
-  version: 2.1
-  build-test:
-    jobs:
-      - test-api
-    jobs:
-        ...
- test-frontend:
-          docker:
-            - image: cimg/node:17.6.0
-          steps:
-            - checkout
-            - run:
-                name: Install requirements
-                command: cd web && npm install
-            - run:
-                name: Run tests and collect coverage
-                command: cd web && npm run test
-            - codecov/upload
-      
- workflows:  
-...
-        build-test:
-           jobs:
-            ...
-                        - test-frontend
-      
+  test-frontend:
+    runs-on: ubuntu-latest
+  docker:
+      - image: cimg/node:17.6.0
+   steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Install requirements
+        run: cd web && npm install
+      - name: Run tests and collect coverage
+        run: cd web && npm run test
+      - name: Upload coverage report
+        uses: codecov/codecov-action@v2
