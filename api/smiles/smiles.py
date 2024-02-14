@@ -1,5 +1,5 @@
 class Smiles:
-    def smile():
+    def smile(self):
         return ":)"
-    def frown():
+    def frown(self):
         return ":("
