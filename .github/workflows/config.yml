@@ -21,10 +21,10 @@ jobs:
       - image: cimg/node:17.6.0
    steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4.2.1
       - name: Install requirements
         run: cd web && npm install
       - name: Run tests and collect coverage
         run: cd web && npm run test
       - name: Upload coverage report
-        uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v4.6.1
