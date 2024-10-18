@@ -7,8 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     name: Test python API
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v2
+      - uses: actions/checkout@v4.2.1
+      - uses: actions/setup-python@v5.2.0
         with:
           python-version: "3.11"
       - name: Install requirements
@@ -16,6 +16,6 @@ jobs:
       - name: Run tests and collect coverage
         run: pytest --cov
       - name: Upload coverage reports to Codecov with GitHub Action
-        uses: codecov/codecov-action@v2
+        uses: codecov/codecov-action@v4.6.0
         with:
           flags: backend
